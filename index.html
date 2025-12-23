@@ -3,63 +3,51 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>M-DEV Docs</title>
+  <title>FiveM Docs</title>
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-  <!-- Header (fixed) -->
+  <!-- Fixed Header -->
   <header class="site-header">
     <div class="header-inner">
-      <div class="brand">
-        <div>
-          <div class="site-title">Meadow-Development - Documentaion</div>
-          <div class="site-sub">Here, the standard is being redefined.</div>
-        </div>
+      <!-- Logo (nur Bild) -->
+      <div class="logo-wrap">
+        <img src="assets/logo.png" alt="Logo" class="logo-img" />
       </div>
 
+      <!-- Header actions (rechts) -->
       <div class="header-actions">
-        <label for="langSelect" class="visually-hidden">Language</label>
         <select id="langSelect" aria-label="Sprache">
-          <option value="de">Deutsch</option>
-          <option value="en">English</option>
+          <option value="de">DE</option>
+          <option value="en">EN</option>
         </select>
       </div>
     </div>
   </header>
 
-  <!-- Main Area (between header + footer) -->
-  <div class="main-area">
-    <!-- Sidebar (left) -->
-    <aside class="sidebar" id="sidebar" aria-label="Navigation">
-      <div class="sidebar-inner">
-        <div class="sidebar-top">
-          <input id="searchInput" placeholder="Search for script or content..." aria-label="Search" />
-        </div>
-
-        <nav id="menu" class="menu" aria-label="Skript Navigation">
-          <!-- Menu wird per JS gerendert -->
-        </nav>
+  <!-- Sidebar fixed left, Content with left margin -->
+  <aside class="sidebar" id="sidebar" aria-label="Navigation">
+    <div class="sidebar-inner">
+      <div class="sidebar-top">
+        <input id="searchInput" placeholder="Suchen..." aria-label="Suchen" />
       </div>
-    </aside>
+      <nav id="menu" class="menu" aria-label="Skript Navigation"></nav>
+    </div>
+  </aside>
 
-    <!-- Content (right) -->
-    <main class="content" id="content" tabindex="0" aria-live="polite">
-      <!-- Content wird per JS gerendert -->
-    </main>
-  </div>
+  <main class="content" id="content" role="main" aria-live="polite">
+    <!-- Content wird per JS befüllt -->
+  </main>
 
-  <!-- Footer (fixed) -->
+  <!-- Fixed Footer -->
   <footer class="site-footer">
     <div class="footer-inner">
-      <div class="footer-left">© <span id="year"></span> Meadow-Development </div>
-      <div class="footer-right">Docs • Support • Lizenz</div>
+      <div>© <span id="year"></span> Deine Firma</div>
+      <div>Docs • Support</div>
     </div>
   </footer>
 
-  <!-- Daten + App -->
   <script src="data/docs.js"></script>
   <script src="js/app.js"></script>
 </body>
 </html>
-
-
