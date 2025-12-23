@@ -2,11 +2,11 @@
 // Mehrsprachiges Beispiel: name: { de, en }, sections: { id: { title: {de,en}, html: {de,en} } }
 
 const DOCS = {
-  "police-system": {
-    name: { de: "Police System", en: "Police System" },
+  "IT_Licenseplate": {
+    name: { de: "IT_Licenseplate", en: "IT_Licenseplate" },
     sections: {
       "installation": {
-        title: { de: "Installation", en: "Installation" },
+        title: { de: "Installation", en: "Install" },
         html: {
           de: "<p>Kopiere <code>police-system</code> nach <code>resources/police-system/</code> und füge <code>ensure police-system</code> in die server.cfg ein.</p><pre>ensure police-system</pre>",
           en: "<p>Copy <code>police-system</code> to <code>resources/police-system/</code> and add <code>ensure police-system</code> to server.cfg.</p><pre>ensure police-system</pre>"
@@ -29,8 +29,8 @@ const DOCS = {
     }
   },
 
-  "vehicle-shop": {
-    name: { de: "Vehicle Shop", en: "Vehicle Shop" },
+  "IT_Versicherung": {
+    name: { de: "IT_Versicherung", en: "IT_Versicherung" },
     sections: {
       "installation": {
         title: { de: "Installation", en: "Installation" },
@@ -49,3 +49,4 @@ const DOCS = {
     }
   }
 };
+
