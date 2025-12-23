@@ -13,8 +13,8 @@
    }
 */
 const DOCS = {
-  "police-system": {
-    name: { de: "Police System", en: "Police System" },
+  "licenseplate": {
+    name: { de: "IT_Licenseplate", en: "IT_Licenseplate" },
     sections: {
       "installation": {
         title: { de: "Installation", en: "Installation" },
@@ -37,8 +37,8 @@ const DOCS = {
       "updates": {
         title: { de: "Updates", en: "Updates" },
         html: {
-          de: `<ul><li>v1.2 — QBCore Kompatibilität</li><li>v1.1 — Fix: Arrest</li></ul>`,
-          en: `<ul><li>v1.2 — QBCore compatibility</li><li>v1.1 — Fix: Arrest flow</li></ul>`
+          de: `<ul><li>v1.1 — Fix: Arrest</li></ul>`,
+          en: `<ul><li>v1.1 — Fix: Arrest flow</li></ul>`
         }
       },
       "usage": {
@@ -46,13 +46,19 @@ const DOCS = {
         html: {
           de: `<p>Commands:</p><pre>/dienst - Dienst an/abmelden\n/cuff - Festnehmen</pre>`,
           en: `<p>Commands:</p><pre>/dienst - toggle duty\n/cuff - cuff a player</pre>`
+        },
+      "compatibility": {
+        title: { de: "Kompatibilität", en: "compatibility" },
+        html: {
+          de: `<p>QBCore:</p><pre>Coming Soon...</pre>\n<p>ESX</p><pre>Unterstützt</pre>`,
+          en: `<p>QBCore:</p><pre>Coming Soon...</pre>\n<p>ESX</p><pre>Supported</pre>`
         }
       }
     }
   },
 
-  "vehicle-shop": {
-    name: { de: "Vehicle Shop", en: "Vehicle Shop" },
+  "insurance": {
+    name: { de: "IT_Versicherung", en: "IT_Versicherung" },
     sections: {
       "installation": {
         title: { de: "Installation", en: "Installation" },
@@ -78,3 +84,4 @@ const DOCS = {
     }
   }
 };
+
