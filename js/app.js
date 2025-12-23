@@ -8,7 +8,14 @@
 
   yearEl.textContent = new Date().getFullYear();
 
-  // Sprache: localStorage fallback
+  if(typeof DOCS === 'undefined'){
+    console.error('DOCS is not loaded — check data/docs.js for syntax errors.');
+    contentEl.innerHTML = '<div class="card"><h1>Fehler</h1><p>Die Dokumentationsdaten konnten nicht geladen werden. Öffne die Entwicklerkonsole (F12) und prüfe auf Syntaxfehler in <code>data/docs.js</code>.</p></div>';
+    return;
+  }
+
+  console.log('DOCS loaded:', Object.keys(DOCS).length, 'scripts');
+
   const LS_LANG = 'fivem_docs_lang';
   let LANG = localStorage.getItem(LS_LANG) || (navigator.language && navigator.language.startsWith('en') ? 'en' : 'de');
   langSelect.value = LANG;
@@ -17,16 +24,10 @@
     LANG = langSelect.value;
     localStorage.setItem(LS_LANG, LANG);
     renderMenu(searchInput.value.trim());
-    // attempt to reload current hash
     const {script, section} = parseHash();
-    if(script && section) loadContent(script, section); else {
-      // default first
-      const first = firstScriptSection();
-      if(first) loadContent(first.script, first.section);
-    }
+    if(script && section) loadContent(script, section);
   });
 
-  // Parse hash: #script/section
   function parseHash(){
     const hash = decodeURIComponent(location.hash.replace(/^#/, ''));
     if(!hash) return {};
@@ -34,7 +35,6 @@
     return { script: parts[0], section: parts[1] };
   }
 
-  // Build menu based on DOCS
   function renderMenu(filter = '') {
     const q = filter.toLowerCase();
     menuEl.innerHTML = '';
@@ -43,16 +43,13 @@
       const group = document.createElement('div');
       group.className = 'nav-group';
 
-      // title
       const title = document.createElement('div');
       title.className = 'nav-script';
       title.textContent = script.name[LANG] || script.name.de;
       group.appendChild(title);
 
-      // list sections
       Object.keys(script.sections).forEach(sectionId => {
         const sec = script.sections[sectionId];
-        // search check: matches script name OR section title OR content
         const hay = (script.name.de + ' ' + script.name.en + ' ' + (sec.title.de || '') + ' ' + (sec.title.en || '') + ' ' + (sec.html.de || '') + ' ' + (sec.html.en || '')).toLowerCase();
         if(q && !hay.includes(q)) return;
 
@@ -66,21 +63,14 @@
           location.hash = `${scriptId}/${sectionId}`;
           loadContent(scriptId, sectionId);
         });
-        link.addEventListener('keydown', (e) => {
-          if(e.key === 'Enter' || e.key === ' ') { e.preventDefault(); link.click(); }
-        });
-
         group.appendChild(link);
       });
 
       menuEl.appendChild(group);
     });
-
-    // highlight active from hash
     highlightActiveFromHash();
   }
 
-  // load content area
   function loadContent(scriptId, sectionId) {
     const script = DOCS[scriptId];
     if(!script) {
@@ -100,19 +90,12 @@
         <div class="page-body">${sec.html[LANG] || sec.html.de}</div>
       </div>
     `;
-
-    // Attach copy handlers to <pre> blocks within content
     attachCopyButtons();
-
-    // set focus for accessibility
     contentEl.focus();
-
-    // update active link highlight
     highlightActiveFromHash();
   }
 
   function attachCopyButtons(){
-    // For every pre, add a copy button if not present
     const pres = contentEl.querySelectorAll('pre');
     pres.forEach(pre => {
       if(pre.dataset.hasCopy) return;
@@ -131,10 +114,8 @@
     });
   }
 
-  // Escape helper for small titles
   function escapeHtml(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 
-  // Highlight active nav link based on location.hash
   function highlightActiveFromHash(){
     const {script, section} = parseHash();
     const links = menuEl.querySelectorAll('.nav-link');
@@ -144,7 +125,6 @@
     });
   }
 
-  // return first script+section
   function firstScriptSection(){
     for(const scriptId of Object.keys(DOCS)){
       const secs = Object.keys(DOCS[scriptId].sections || {});
@@ -153,20 +133,16 @@
     return null;
   }
 
-  // Search input
   searchInput.addEventListener('input', (e) => {
     renderMenu(e.target.value.trim());
   });
 
-  // React to hashchange (back/forward)
   window.addEventListener('hashchange', () => {
     const {script, section} = parseHash();
     if(script && section) loadContent(script, section);
   });
 
-  // Initial render
   renderMenu('');
-  // Try to load from hash or default
   const {script, section} = parseHash();
   if(script && section) loadContent(script, section);
   else {
@@ -177,7 +153,7 @@
     } else contentEl.innerHTML = '<div class="card"><p>Keine Inhalte vorhanden.</p></div>';
   }
 
-  // Expose some for debugging (optional)
-  window.FIVEM_DOCS = { renderMenu, loadContent, DOCS };
+  // for debugging convenience
+  window.FIVEM_DOCS = { DOCS };
 
 })();
